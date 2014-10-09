@@ -38,7 +38,8 @@ app.post('/talksmack', function(req, res) {
 		.write("public/memes/"+timeStamp + ".gif", function (err) {
 			if (!err) {
 				console.log('done');
-				res.redirect(301, 'memes/'+timeStamp+'.gif');
+				//res.redirect(301, 'memes/'+timeStamp+'.gif');
+				res.render('share', {gifName: 'memes/'+timeStamp+'.gif'});
 			} else {
 				console.log(err);
 			}
