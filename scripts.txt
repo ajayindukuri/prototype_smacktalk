@@ -1,0 +1,13 @@
+
+
+convert homer.gif -gravity south \
+          -stroke '#000C' -strokewidth 2 -annotate 0 'Homer Simpson' \
+          -stroke  none   -fill white    -annotate 0 'Homer Simpson' \
+          anno_outline.jpg
+
+
+convert homer.gif -gravity north \
+		-pointsize 32 \
+    -stroke '#000C' -strokewidth 2 -annotate 0 '$DynamicText' \
+    -stroke  none   -fill white    -annotate 0 'Homer Simpson' \
+    anno_outline.gif
