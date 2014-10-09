@@ -9,10 +9,16 @@ var fs = require('fs'),
 // resize and remove EXIF profile data
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
+
+console.log( process.cwd() );
 app.use(express.static(process.cwd() + '/public'));
 
 app.get('/', function(req, res) {
 	res.render('index');
+});
+
+app.get('/talksmack', function(req, res){
+	res.redirect(301, '/');
 });
 
 app.post('/talksmack', function(req, res) {
@@ -32,7 +38,7 @@ app.post('/talksmack', function(req, res) {
 		.write("public/memes/"+timeStamp + ".gif", function (err) {
 			if (!err) {
 				console.log('done');
-				res.redirect('memes/'+timeStamp+'.gif', 301);
+				res.redirect(301, 'memes/'+timeStamp+'.gif');
 			} else {
 				console.log(err);
 			}
