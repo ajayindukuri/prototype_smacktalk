@@ -1,0 +1,60 @@
+/* CSS */
+
+html, 
+body { margin: 0; padding: 0; background-color: #1c5726; color: #fff; font-family: arial; }
+
+html * { outline: none; }
+
+.row { max-width: 75.0em !important; }
+
+h3 { padding: 20px 0; color: #e5e5e5; text-transform: uppercase; font: 20px arial; border-bottom: 1px #376540 dotted; }
+p { margin: 10px 0; }
+label { color: #fff; }
+input[type="text"], input[type="text"]:focus  {
+	background-color: transparent;
+	border: 1px #376540 solid;
+	color: #fff;
+	width: 272px;
+}
+
+/*Navigation */
+/*#nav img { width: 100%; max-height: 320px; }*/
+#nav { background: url(images/nav_lg.jpg) no-repeat fixed 50% 0; background-size: cover; }
+
+/* Home */
+#home { text-align: center; background-color: #1c5726; padding: 4% 0 8%; }
+#home > img { width: 40%; }
+#home .text { padding: 4% 16%; color: #fff; font: 18px/27px arial; }
+#home .link { color: #f2b217; text-transform: uppercase; font: bold 16px arial; }
+
+/* Smack Talk */
+#accordion { background-color: #0f2e14; display: none; }
+#accordion h3 { padding: 2% 28%; margin: 0; }
+#step-1, #step-2, #step-3 { padding: 20px 28% 20px; margin: 0; height: 70%; }
+
+#step-1 { padding-left: 32%; }
+#step-1 .btn-name { background-color: #f2b217; color: #0a3d14; text-transform: uppercase; padding: 20px; border: 0; font-size: 18px; width: 272px; }
+
+.one { background-color: #0e521d; }
+.two { background-color: #0f471a; }
+.three { background-color: #0a3d14; }
+
+.images { margin: 0; overflow: auto; }
+.images ul { padding: 0; margin: 0 15px; }
+.images ul li { float: left; list-style: none; margin: 0 5px; padding: 0; }
+.a-gif input[type="radio"] { visibility: hidden; display: block; }
+.a-gif input[type="radio"]:checked + label img { border: 3px solid orange; }
+.a-gif img { height: 100px; }
+
+.messages { clear: both; margin: 10px 20px 20px; opacity: 0.2; }
+.msgs { display: none; }
+.active { display: block; }
+
+/* Footer */
+#footer { position: fixed; bottom: 0; width: 100%; background-color: #1f1f1f; padding: 28px 20px;  }
+#footer .large-6 { color: #666; font: 18px arial; }
+#footer .right { position: relative; color: #666; text-align: center; }
+#footer .right a { color: #d99e16; font: 18px arial; text-decoration: none; }
+#footer .right img { position: absolute; right: 20px; top: -62px; }
+
+

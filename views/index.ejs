@@ -3,50 +3,48 @@
 <head>
   <meta charset="UTF-8">
   <title>Smack Talk</title>
-  <style type="text/css">
-    h3 { margin: 20px 0 0; }
-    p { margin: 10px 0; }
-
-    #step-1 { margin: 20px; }
-    #step-1 .btn-name { margin: 10px 0; }
-
-    .images { margin: 0; overflow: auto; }
-    .images ul { padding: 0; margin: 0 15px; }
-    .images ul li { float: left; list-style: none; margin: 0 5px; }
-    .button input[type="radio"] { visibility: hidden; display: block; }
-    .button input[type="radio"]:checked + label img { border: 3px solid orange; }
-
-    .messages { clear: both; margin: 10px 20px 20px; opacity: 0.2; }
-    .msgs { display: none; }
-    .active { display: block; }
-
-  </style>
+  <link rel="stylesheet" href="../css/foundation.css" />
+  <link rel="stylesheet" href="../css/style.css" />
 </head>
 <body>  
   
+  <div id="nav">
+    <!--<img src="images/nav_lg.jpg" />-->
+  </div>
+
+  <div id="home" class="row">
+    <div class="large-12 columns">
+      <img src="images/home_copy.png" />
+      <p class="text">You are the king of fantasy football. Make sure your friends know it by posting personalized, animated smack talk to their Facebook pages and more. Courtesy of DIRECTV FANTASY ZONE™ on DIRECTV’s NFL SUNDAY TICKET MAX.</p>
+
+      <p class="link">Click or scroll to Talk Smack</p>
+      <a href="javascript:void();" class="btn-scroll"><img src="images/btn_scroll.png" /></a>
+    </div>
+  </div>
+  
   <div id="accordion">
     
-    <h3>1. Enter a friend's name</h3>
-    <div id="step-1">
+    <h3 class="one"><span>1.</span> Who are you Smack</h3>
+    <div id="step-1" class="one">
       <form action="/talksmack" method="post">
-        <label for="username">Friend's Name:</label><br />
+        <label for="username">Enter Friend's Name:</label><br />
         <input type="text" name="username"><br />
-        <input class="btn-name" value="submit">
+        <input class="btn-name" value="Talk Smack to a friend">
     </div>
 
-    <h3>2. Choose a GIF</h3>
-    <div id="step-2">
+    <h3 class="two">2. Choose a GIF</h3>
+    <div id="step-2" class="two">
         <div class="images">
         
           <ul>
-            <li class="button">
+            <li class="a-gif">
               <input type="radio" name="image" value="leehaw" id="leehaw">
-              <label for="leehaw"><img src="images/leehaw.gif" alt="leehaw" height="100"></label>
+              <label for="leehaw"><img src="images/leehaw.gif" alt="leehaw"></label>
             </li>
 
-            <li class="button">
+            <li class="a-gif">
               <input type="radio" name="image" value="homer" id="homer">
-              <label for="homer"><img src="images/homer.gif" alt="homer" height="100"></label>
+              <label for="homer"><img src="images/homer.gif" alt="homer"></label>
             </li>
           </ul>
         </div>
@@ -71,17 +69,44 @@
       </form>
     </div>
 
-    <h3>3. Send Your Samck Talk</h3>
-    <div id="step-3">
+    <h3 class="three">3. Send Your Samck Talk</h3>
+    <div id="step-3" class="three">
       <p>GENERATE GIF</p>
       <img src="images/spinner.gif" />
+    </div>    
+  </div>
+
+  <div id="footer">
+    <div class="row">
+      <div class="large-6 columns left">
+        Smack talk made possible by Directv’s NFL Sunday Ticket
+      </div>
+      <div class="large-6 columns right">
+        <a href="#">Learn about NFL Sunday Ticket  ></a>
+        <img src="images/nfl_logo.png" />
+      </div>
     </div>
-    
-</div>
+  </div>
+
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+<script src="../js/foundation.min.js"></script>
 <script type="text/javascript">
   $(document).ready(function() {
+
+    var wh = $(window).height() - 78;
+    $('#home, #accordion').css("height", wh);
+
+    $(".btn-scroll").click(function(){
+      $("#home").slideUp('slow');
+      $("#accordion").slideDown('slow');
+    });
+
+     $(window).scroll(function() {
+        $("#home").slideUp();
+        $("#accordion").slideDown();
+     });
+
     $("#accordion").accordion({
       heightStyle: "content"
     });
