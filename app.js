@@ -8,9 +8,9 @@ var fs = require('fs'),
 
 
 var client = pkgcloud.storage.createClient({
-  provider: 'rackspace',
-  username: 'hatchideas',
-  apiKey: '139194dc584201dd0d9b2e0479445797',
+	provider: 'rackspace',
+	username: 'hatchideas',
+	apiKey: '139194dc584201dd0d9b2e0479445797',
  region: 'IAD'
 }),
 container;
@@ -18,26 +18,26 @@ container;
 
 
 client.createContainer({
-  name: 'gallery'
+	name: 'gallery'
 }, function (err, container) {
-  if (err) {
-    // TODO handle as appropriate
-    console.log('error creating container');
-    console.log(err);
-    return;
-  }
-  console.log('container created successfuly');
-  // TODO use your container
+	if (err) {
+		// TODO handle as appropriate
+		console.log('error creating container');
+		console.log(err);
+		return;
+	}
+	console.log('container created successfuly');
+	// TODO use your container
 });
 
 container = client.getContainer('gallery', function(err, container) {
-  if (err) {
-    // TODO handle as appropriate
-    console.log(err);
-  }
-  console.log( 'got the container');
-  // TODO use your container
-  console.log(container.cdnUri);
+	if (err) {
+		// TODO handle as appropriate
+		console.log(err);
+	}
+	console.log( 'got the container');
+	// TODO use your container
+	console.log(container.cdnUri);
 });
 
 
@@ -103,7 +103,16 @@ app.post('/talksmack', function(req, res) {
 				// console.log('cdnURL: ' + cdnUrl);
 
 
-				res.render('share', {gifName: 'memes/'+timeStamp+'.gif'});
+				// res.render('share', {gifName: 'memes/'+timeStamp+'.gif'});
+
+				var response = {
+					status  : 200,
+					success : 'Updated Successfully',
+					gifUrl : 'memes/'+timeStamp+'.gif'
+				};
+
+				res.end(JSON.stringify(response));
+
 			} else {
 				console.log(err);
 			}
