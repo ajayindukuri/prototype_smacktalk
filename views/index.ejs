@@ -142,8 +142,6 @@
       })
       .done(function( data ) {
         var response = JSON.parse(data);
-        console.log( response );
-        console.log( response.gifUrl );
         $("#step-3").html('<img src="' + response.gifUrl +  '">');
       });
 
