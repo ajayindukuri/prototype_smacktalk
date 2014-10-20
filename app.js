@@ -25,6 +25,7 @@ app.post('/talksmack', function(req, res) {
 	// console.log(req.body.username);
 	var name = req.body.username,
 		gif = req.body.image,
+		msg = req.body.msg,
 		timeStamp = Date.now();
 
 	console.log(name + 'will now become a ' + gif + ' meme!');
@@ -33,8 +34,11 @@ app.post('/talksmack', function(req, res) {
 		.options({imageMagick: true})
 		.fill("#ffffff")
 		// .font("Helvetica.ttf", 42)
-		.fontSize(42)
-		.drawText(30, 50, name + ' rides again')
+		.fontSize(22)
+		//.drawText(30, 50, name + ' rides again')
+		.drawText(10, 28, 'Hey ' + name + ', ')
+		.fontSize(18)
+		.drawText(10, 48, msg)
 		.write("public/memes/"+timeStamp + ".gif", function (err) {
 			if (!err) {
 				console.log('done');

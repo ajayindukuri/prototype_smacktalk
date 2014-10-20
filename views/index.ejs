@@ -2,20 +2,112 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
+  <title>Smack Talk</title>
+  <style type="text/css">
+    h3 { margin: 20px 0 0; }
+    p { margin: 10px 0; }
+
+    #step-1 { margin: 20px; }
+    #step-1 .btn-name { margin: 10px 0; }
+
+    .images { margin: 0; overflow: auto; }
+    .images ul { padding: 0; margin: 0 15px; }
+    .images ul li { float: left; list-style: none; margin: 0 5px; }
+    .button input[type="radio"] { visibility: hidden; display: block; }
+    .button input[type="radio"]:checked + label img { border: 3px solid orange; }
+
+    .messages { clear: both; margin: 10px 20px 20px; opacity: 0.2; }
+    .msgs { display: none; }
+    .active { display: block; }
+
+  </style>
 </head>
-<body>
-  <h1>Enter your name</h1>
-  <form action="/talksmack" method="post">
+<body>  
+  
+  <div id="accordion">
+    
+    <h3>1. Enter a friend's name</h3>
+    <div id="step-1">
+      <form action="/talksmack" method="post">
+        <label for="username">Friend's Name:</label><br />
+        <input type="text" name="username"><br />
+        <input class="btn-name" value="submit">
+    </div>
 
+    <h3>2. Choose a GIF</h3>
+    <div id="step-2">
+        <div class="images">
+        
+          <ul>
+            <li class="button">
+              <input type="radio" name="image" value="leehaw" id="leehaw">
+              <label for="leehaw"><img src="images/leehaw.gif" alt="leehaw" height="100"></label>
+            </li>
 
-    <input type="radio" name="image" value="leehaw" checked="checked">Rodeo
-    <img src="images/leehaw.gif" alt="Rodeo" height="100"><br>
-    <input type="radio" name="image" value="homer">Homer
-    <img src="images/homer.gif" alt="Homer" height="100"><br>
-    <label for="username">Name:</label>
-    <input type="text" name="username">
-    <input type="submit" value="submit">
-  </form>
+            <li class="button">
+              <input type="radio" name="image" value="homer" id="homer">
+              <label for="homer"><img src="images/homer.gif" alt="homer" height="100"></label>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="messages">
+
+          <p>Choose your trash talk</p>
+          <div id="leehaw" class="msgs active">
+            <input type="radio" name="msg" value="you ride again 1"> you ride again 1<br />
+            <input type="radio" name="msg" value="you ride again 2"> you ride again 2<br />
+            <input type="radio" name="msg" value="you ride again 3"> you ride again 3<br />
+          </div>
+        
+          <div id="homer" class="msgs">
+            <input type="radio" name="msg" value="you bang again 1"> you bang again 1<br />
+            <input type="radio" name="msg" value="you bang again 2"> you bang again 2<br />
+            <input type="radio" name="msg" value="you bang again 3"> you bang again 3<br />
+          </div>
+        </div>
+        
+        <input class="btn-img" type="submit" value="Generate GIF">
+      </form>
+    </div>
+
+    <h3>3. Send Your Samck Talk</h3>
+    <div id="step-3">
+      <p>GENERATE GIF</p>
+      <img src="images/spinner.gif" />
+    </div>
+    
+</div>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#accordion").accordion({
+      heightStyle: "content"
+    });
+
+    $(".images input").click(function(){
+      var value = $(this).val();
+
+      $(".msgs").hide();
+      $(".msgs").removeClass("active");
+      
+      $(".messages #" + value).show();
+      $(".messages #" + value).addClass("active");
+      
+      $(".messages").css("opacity", 1);
+    });
+
+    $('.btn-name').click(function(){
+      $('#step-1').slideUp();
+      $('#step-2').slideDown();
+    });
+
+    $('.btn-img').click(function(){
+      $('#step-2').slideUp();
+      $('#step-3').slideDown();
+    });
+  });
+</script>
 </body>
 </html>
