@@ -3,10 +3,66 @@ var fs = require('fs'),
 	gm = require('gm'),
 	bodyParser = require('body-parser'),
 	express = require('express'),
+	pkgcloud = require('pkgcloud'),
 	app = express();
 
 
-// resize and remove EXIF profile data
+var client = pkgcloud.storage.createClient({
+  provider: 'rackspace',
+  username: 'hatchideas',
+  apiKey: '139194dc584201dd0d9b2e0479445797',
+ region: 'IAD'
+}),
+container;
+
+
+
+client.createContainer({
+  name: 'gallery'
+}, function (err, container) {
+  if (err) {
+    // TODO handle as appropriate
+    console.log('error creating container');
+    console.log(err);
+    return;
+  }
+  console.log('container created successfuly');
+  // TODO use your container
+});
+
+container = client.getContainer('gallery', function(err, container) {
+  if (err) {
+    // TODO handle as appropriate
+    console.log(err);
+  }
+  console.log( 'got the container');
+  // TODO use your container
+  console.log(container);
+});
+
+
+
+function uploadMeme(timeStamp) {
+	var filePath = 'public/memes/' + timeStamp + '.gif',
+		source = fs.createReadStream(filePath);
+
+	dest = client.upload({
+		container: 'gallery',
+		remote: timeStamp + '.gif',
+	}, function(err) {
+		if (err) {
+			console.log(err);
+		}
+	});
+
+	// pipe the source to the destination
+	source.pipe(dest);
+
+}
+
+
+
+
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -30,12 +86,9 @@ app.post('/talksmack', function(req, res) {
 
 	console.log(name + 'will now become a ' + gif + ' meme!');
 	gm('public/images/'+ gif +'.gif')
-		// .stroke("#ffffff")
 		.options({imageMagick: true})
 		.fill("#ffffff")
-		// .font("Helvetica.ttf", 42)
 		.fontSize(22)
-		//.drawText(30, 50, name + ' rides again')
 		.drawText(10, 28, 'Hey ' + name + ', ')
 		.fontSize(18)
 		.drawText(10, 48, msg)
@@ -43,11 +96,16 @@ app.post('/talksmack', function(req, res) {
 			if (!err) {
 				console.log('done');
 				//res.redirect(301, 'memes/'+timeStamp+'.gif');
+				uploadMeme(timeStamp);
+
+				var cdnUrl = container.cdnUri + '/' + encodeURIComponent(timeStamp+'.gif');
+				console.log('cdnURL: ' + cdnUrl);
+
+
 				res.render('share', {gifName: 'memes/'+timeStamp+'.gif'});
 			} else {
 				console.log(err);
 			}
-
 	});
 });
 
