@@ -9,12 +9,13 @@
 <body>  
   
   <div id="nav">
+    <div></div>
     <!--<img src="images/nav_lg.jpg" />-->
   </div>
 
   <div id="home" class="row">
     <div class="large-12 columns">
-      <img src="images/home_copy.png" />
+      <div class="t-img"><img src="images/home_copy.png" /></div>
       <p class="text">You are the king of fantasy football. Make sure your friends know it by posting personalized, animated smack talk to their Facebook pages and more. Courtesy of DIRECTV FANTASY ZONE™ on DIRECTV’s NFL SUNDAY TICKET MAX.</p>
 
       <p class="link">Click or scroll to Talk Smack</p>
@@ -94,12 +95,23 @@
 <script type="text/javascript">
   $(document).ready(function() {
 
-    var wh = $(window).height() - 78;
+    var nh = $(window).height()/4;
+    var wh = $(window).height() - nh - 78;
+
+    $("#nav").css("height", nh);
     $('#home, #accordion').css("height", wh);
+    $('#home .t-img, #home .t-img img').css("height", wh/3);
 
     $(".btn-scroll").click(function(){
       $("#home").slideUp('slow');
       $("#accordion").slideDown('slow');
+      $("#nav").animate({
+          height: nh/3
+        });
+      $("#nav div").animate({
+         height: nh/3,
+          opacity: 1
+        });
     });
 
      $(window).scroll(function() {

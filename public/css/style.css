@@ -5,6 +5,17 @@ body { margin: 0; padding: 0; background-color: #1c5726; color: #fff; font-famil
 
 html * { outline: none; }
 
+
+@-webkit-keyframes fadeIn {
+	0%   { opacity: 0; }
+	100% { opacity: 1; }
+}
+
+@keyframes fadeIn {
+	0%   { opacity: 0; }
+	100% { opacity: 1; }
+}
+
 .row { max-width: 75.0em !important; }
 
 h3 { padding: 20px 0; color: #e5e5e5; text-transform: uppercase; font: 20px arial; border-bottom: 1px #376540 dotted; }
@@ -19,18 +30,19 @@ input[type="text"], input[type="text"]:focus  {
 
 /*Navigation */
 /*#nav img { width: 100%; max-height: 320px; }*/
-#nav { background: url(images/nav_lg.jpg) no-repeat fixed 50% 0; background-size: cover; }
+#nav { background: #1f1f1f url(../images/nav_lg.jpg) no-repeat fixed 50% 0; background-size: contain; }
+#nav div { background-color: #1f1f1f; opacity: 0; }
 
 /* Home */
 #home { text-align: center; background-color: #1c5726; padding: 4% 0 8%; }
-#home > img { width: 40%; }
-#home .text { padding: 4% 16%; color: #fff; font: 18px/27px arial; }
+#home .t-img img { width: auto; }
+#home .text { padding: 2% 16%; color: #fff; font: 18px/27px arial; }
 #home .link { color: #f2b217; text-transform: uppercase; font: bold 16px arial; }
 
 /* Smack Talk */
-#accordion { background-color: #0f2e14; display: none; }
+#accordion { background-color: #0a3d14; display: none; }
 #accordion h3 { padding: 2% 28%; margin: 0; }
-#step-1, #step-2, #step-3 { padding: 20px 28% 20px; margin: 0; height: 70%; }
+#step-1, #step-2, #step-3 { padding: 20px 28% 20px; margin: 0; height: 78%; }
 
 #step-1 { padding-left: 32%; }
 #step-1 .btn-name { background-color: #f2b217; color: #0a3d14; text-transform: uppercase; padding: 20px; border: 0; font-size: 18px; width: 272px; }
