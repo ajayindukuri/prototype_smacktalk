@@ -37,7 +37,7 @@ container = client.getContainer('gallery', function(err, container) {
 	}
 	console.log( 'got the container');
 	// TODO use your container
-	console.log(container.cdnUri);
+	console.log('container.cdnUri: ' + container.cdnUri);
 });
 
 
@@ -49,17 +49,17 @@ function uploadMeme(timeStamp) {
 	dest = client.upload({
 		container: 'gallery',
 		remote: timeStamp + '.gif',
-	}, function(err) {
+	}, function(err, res) {
 		if (err) {
 			console.log(err);
 		}
+		console.log("dest:");
+		console.log( res );
 	});
 
 	// pipe the source to the destination
 	source.pipe(dest);
-
 }
-
 
 
 
@@ -85,7 +85,7 @@ app.post('/talksmack', function(req, res) {
 		msg = req.body.msg,
 		timeStamp = Date.now();
 
-	console.log(name + 'will now become a ' + gif + ' meme!');
+	console.log(name + ' will now become a ' + gif + ' meme!');
 	gm('public/images/'+ gif +'.gif')
 		.options({imageMagick: true})
 		.fill("#ffffff")
@@ -104,6 +104,14 @@ app.post('/talksmack', function(req, res) {
 
 
 				// res.render('share', {gifName: 'memes/'+timeStamp+'.gif'});
+
+				client.getFile('gallery', '1413842499797.gif', function(err, file) {
+					console.log("Error: " + err);
+					console.log('------');
+					console.log("File: ", file);
+				});
+
+
 
 				var response = {
 					status  : 200,
@@ -139,6 +147,7 @@ app.get('/testload', function(req, res) {
 
 				// var cdnUrl = container.cdnUri + '/' + encodeURIComponent(timeStamp+'.gif');
 				// console.log('cdnURL: ' + cdnUrl);
+
 				res.render('share', {gifName: 'memes/'+timeStamp+'.gif'});
 			} else {
 				console.log(err);
