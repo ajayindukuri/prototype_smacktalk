@@ -6,8 +6,8 @@
   <link rel="stylesheet" href="../css/foundation.css" />
   <link rel="stylesheet" href="../css/style.css" />
 </head>
-<body>  
-  
+<body>
+
   <div id="nav">
     <div></div>
     <!--<img src="images/nav_lg.jpg" />-->
@@ -19,15 +19,15 @@
       <p class="text">You are the king of fantasy football. Make sure your friends know it by posting personalized, animated smack talk to their Facebook pages and more. Courtesy of DIRECTV FANTASY ZONE™ on DIRECTV’s NFL SUNDAY TICKET MAX.</p>
 
       <p class="link">Click or scroll to Talk Smack</p>
-      <a href="javascript:void();" class="btn-scroll"><img src="images/btn_scroll.png" /></a>
+      <a class="btn-scroll"><img src="images/btn_scroll.png" /></a>
     </div>
   </div>
-  
+
   <div id="accordion">
-    
+
     <h3 class="one"><span>1.</span> Who are you Smack</h3>
     <div id="step-1" class="one">
-      <form action="/talksmack" method="post">
+      <form id="theform" action="/talksmack" method="post">
         <label for="username">Enter Friend's Name:</label><br />
         <input type="text" name="username"><br />
         <input class="btn-name" value="Talk Smack to a friend">
@@ -36,7 +36,7 @@
     <h3 class="two">2. Choose a GIF</h3>
     <div id="step-2" class="two">
         <div class="images">
-        
+
           <ul>
             <li class="a-gif">
               <input type="radio" name="image" value="leehaw" id="leehaw">
@@ -49,7 +49,7 @@
             </li>
           </ul>
         </div>
-        
+
         <div class="messages">
 
           <p>Choose your trash talk</p>
@@ -58,14 +58,14 @@
             <input type="radio" name="msg" value="you ride again 2"> you ride again 2<br />
             <input type="radio" name="msg" value="you ride again 3"> you ride again 3<br />
           </div>
-        
+
           <div id="homer" class="msgs">
             <input type="radio" name="msg" value="you bang again 1"> you bang again 1<br />
             <input type="radio" name="msg" value="you bang again 2"> you bang again 2<br />
             <input type="radio" name="msg" value="you bang again 3"> you bang again 3<br />
           </div>
         </div>
-        
+
         <input class="btn-img" type="submit" value="Generate GIF">
       </form>
     </div>
@@ -74,7 +74,7 @@
     <div id="step-3" class="three">
       <p>GENERATE GIF</p>
       <img src="images/spinner.gif" />
-    </div>    
+    </div>
   </div>
 
   <div id="footer">
@@ -128,10 +128,10 @@
 
       $(".msgs").hide();
       $(".msgs").removeClass("active");
-      
+
       $(".messages #" + value).show();
       $(".messages #" + value).addClass("active");
-      
+
       $(".messages").css("opacity", 1);
     });
 
@@ -140,10 +140,26 @@
       $('#step-2').slideDown();
     });
 
-    $('.btn-img').click(function(){
+    $('.btn-img').click(function(e){
+      e.preventDefault();
       $('#step-2').slideUp();
       $('#step-3').slideDown();
+
+      var data = $( "#theform" ).serialize();
+
+      $.ajax({
+        type: "POST",
+        url: "/talksmack",
+        data: data
+      })
+      .done(function( data ) {
+        var response = JSON.parse(data);
+        $("#step-3").html('<img src="' + response.gifUrl +  '">');
+      });
+
     });
+
+
   });
 </script>
 </body>
