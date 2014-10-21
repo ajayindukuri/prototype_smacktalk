@@ -61,8 +61,6 @@ function uploadMeme(timeStamp) {
 	source.pipe(dest);
 }
 
-
-
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
 

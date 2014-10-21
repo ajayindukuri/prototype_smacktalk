@@ -25,55 +25,88 @@
 
   <div id="accordion">
 
-    <h3 class="one"><span>1.</span> Who are you Smacking?</h3>
+    <div class="one">
+      <h3><span><img src="images/one.png" /></span> Who are you Smacking?</h3>
+    </div>
     <div id="step-1" class="one">
-      <form id="theform" action="/talksmack" method="post">
-        <label for="username">Enter Friend's Name:</label><br />
-        <input type="text" name="username"><br />
-        <input class="btn-name" value="Talk Smack to a friend">
+      <div class="row">
+        <div class="large-12 columns">
+        <form id="theform" action="/talksmack" method="post">
+          <input type="text" name="username"><br />
+          <input class="btn btn-name" value="Talk Smack to a friend">
+        </div>
+      </div>
     </div>
-
-    <h3 class="two">2. Choose a GIF</h3>
+    
+    <div class="two">
+      <h3><span><img src="images/two.png" /></span>  Choose a GIF</h3>
+    </div>
     <div id="step-2" class="two">
-        <div class="images">
+      <div class="row">
+        <div class="large-12 columns">
+          <div class="images">
 
-          <ul>
-            <li class="a-gif">
-              <input type="radio" name="image" value="leehaw" id="leehaw">
-              <label for="leehaw"><img src="images/leehaw.gif" alt="leehaw"></label>
-            </li>
+            <ul>
+              <li class="a-gif">
+                <input type="radio" name="image" value="dance_share" id="dance_share">
+                <label for="dance_share"><img src="images/dance.gif" alt="dance_share"></label>
+              </li>
 
-            <li class="a-gif">
-              <input type="radio" name="image" value="homer" id="homer">
-              <label for="homer"><img src="images/homer.gif" alt="homer"></label>
-            </li>
-          </ul>
-        </div>
+              <li class="a-gif">
+                <input type="radio" name="image" value="leehaw" id="leehaw">
+                <label for="leehaw"><img src="images/leehaw.gif" alt="leehaw"></label>
+              </li>
 
-        <div class="messages">
-
-          <p>Choose your trash talk</p>
-          <div id="leehaw" class="msgs active">
-            <input type="radio" name="msg" value="you ride again 1"> you ride again 1<br />
-            <input type="radio" name="msg" value="you ride again 2"> you ride again 2<br />
-            <input type="radio" name="msg" value="you ride again 3"> you ride again 3<br />
+              <li class="a-gif">
+                <input type="radio" name="image" value="homer" id="homer">
+                <label for="homer"><img src="images/homer.gif" alt="homer"></label>
+              </li>
+            </ul>
           </div>
+          <div class="messages">
 
-          <div id="homer" class="msgs">
-            <input type="radio" name="msg" value="you bang again 1"> you bang again 1<br />
-            <input type="radio" name="msg" value="you bang again 2"> you bang again 2<br />
-            <input type="radio" name="msg" value="you bang again 3"> you bang again 3<br />
+            <p>Choose your trash talk</p>
+
+            <div id="dance_share" class="msgs active">
+              <input type="radio" name="msg" value="you dance again 1"> you dance again 1<br />
+              <input type="radio" name="msg" value="you dance again 2"> you dance again 2<br />
+              <input type="radio" name="msg" value="you dance again 3"> you dance again 3<br />
+            </div>
+
+            <div id="leehaw" class="msgs">
+              <input type="radio" name="msg" value="you ride again 1"> you ride again 1<br />
+              <input type="radio" name="msg" value="you ride again 2"> you ride again 2<br />
+              <input type="radio" name="msg" value="you ride again 3"> you ride again 3<br />
+            </div>
+
+            <div id="homer" class="msgs">
+              <input type="radio" name="msg" value="you bang again 1"> you bang again 1<br />
+              <input type="radio" name="msg" value="you bang again 2"> you bang again 2<br />
+              <input type="radio" name="msg" value="you bang again 3"> you bang again 3<br />
+            </div>
           </div>
+          <input class="btn btn-img" type="submit" value="Generate GIF">
+          </form>
         </div>
-
-        <input class="btn-img" type="submit" value="Generate GIF">
-      </form>
+      </div>
     </div>
 
-    <h3 class="three">3. Send Your Smack Talk</h3>
+    <div class="three">
+      <h3><span><img src="images/three.png" /></span>  Send Your Smack Talk</h3>
+    </div>
     <div id="step-3" class="three">
-      <p>GENERATE GIF</p>
-      <img src="images/spinner.gif" />
+      <div class="row">
+        <div class="large-12 columns">
+      
+          <div id="g-img">
+            <p>GENERATE GIF</p>
+            <img src="images/spinner.gif" />
+          </div>
+          
+          <a href="" class="btn">Talk Smack on Facebook</a>
+          <a href="" class="btn">Talk Smack on Twitter</a>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -109,9 +142,11 @@
           height: nh/3
         });
       $("#nav div").animate({
-         height: nh/3,
+          height: nh/3,
           opacity: 1
         });
+      $(".fz").css("height", nh/3);
+      $(".fz").css("margin-top", -nh/3 - 14);
     });
 
      $(window).scroll(function() {
@@ -154,12 +189,10 @@
       })
       .done(function( data ) {
         var response = JSON.parse(data);
-        $("#step-3").html('<img src="' + response.gifUrl +  '">');
+        $("#g-img").html('<img src="' + response.gifUrl +  '">');
       });
 
     });
-
-
   });
 </script>
 </body>
