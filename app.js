@@ -105,11 +105,11 @@ app.post('/talksmack', function(req, res) {
 
 				// res.render('share', {gifName: 'memes/'+timeStamp+'.gif'});
 
-				client.getFile('gallery', '1413842499797.gif', function(err, file) {
-					console.log("Error: " + err);
-					console.log('------');
-					console.log("File: ", file);
-				});
+				// client.getFile('gallery', '1413842499797.gif', function(err, file) {
+				// 	console.log("Error: " + err);
+				// 	console.log('------');
+				// console.log("File: ", file);
+				// });
 
 
 
