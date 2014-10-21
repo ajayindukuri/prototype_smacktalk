@@ -30,9 +30,9 @@ input[type="text"], input[type="text"]:focus  {
 
 /*Navigation */
 /*#nav img { width: 100%; max-height: 320px; }*/
-#nav { background: #1f1f1f url(../images/nav_lg.jpg) no-repeat fixed 50% 0; background-size: contain; }
+#nav { background: url(../images/nav_lg.jpg) no-repeat fixed 50% 0; background-size: contain; text-align: center; }
 #nav div { background-color: #1f1f1f; opacity: 0; }
-
+#nav .fz { margin-top: 4%; }
 /* Home */
 #home { text-align: center; background-color: #1c5726; padding: 4% 0 8%; }
 #home .t-img img { width: auto; }
