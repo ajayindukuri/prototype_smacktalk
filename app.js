@@ -92,7 +92,7 @@ app.post('/talksmack', function(req, res) {
 		.write("public/memes/"+timeStamp + ".gif", function (err) {
 			if (!err) {
 				var gifUrl = url + '/' + timeStamp+'.gif';
-				console.log('done creating meme');
+				console.log('Done Creating Meme. Start: ' + timeStamp + " End: " + Date.now() + " Elapsed: " + ( Date.now() - timeStamp )/1000 + "s" );
 				//res.redirect(301, 'memes/'+timeStamp+'.gif');
 				uploadMeme(timeStamp);
 
@@ -128,7 +128,7 @@ app.get('/testload', function(req, res) {
 				var gifUrl = url + '/' + timeStamp+'.gif';
 				console.log('done');
 				uploadMeme(timeStamp);
-				dest.on('success', function() {
+				dest.on('success', function(file) {
 					console.log('file is done uploading');
 					res.render('share', {gifName: gifUrl});
 				});
