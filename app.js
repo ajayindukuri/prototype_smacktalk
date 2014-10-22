@@ -15,12 +15,12 @@ var client = pkgcloud.storage.createClient({
 	}),
 	container,
 	url,
-	source;
-
+	source,
+	dest;
 
 
 client.createContainer({
-	name: 'gallery'
+	name: 'talksmack'
 }, function (err, container) {
 	if (err) {
 		// TODO handle as appropriate
@@ -32,7 +32,7 @@ client.createContainer({
 	// TODO use your container
 });
 
-container = client.getContainer('gallery', function(err, container) {
+container = client.getContainer('talksmack', function(err, container) {
 	if (err) {
 		// TODO handle as appropriate
 		console.log(err);
@@ -50,17 +50,11 @@ function uploadMeme(timeStamp) {
 
 	source = fs.createReadStream(filePath);
 	dest = client.upload({
-		container: 'gallery',
+		container: 'talksmack',
 		remote: timeStamp + '.gif',
-	}, function(err, res) {
-		if (err) {
-			console.log(err);
-		}
 	});
 
-	// pipe the source to the destination
 	source.pipe(dest);
-
 }
 
 
@@ -102,16 +96,16 @@ app.post('/talksmack', function(req, res) {
 				//res.redirect(301, 'memes/'+timeStamp+'.gif');
 				uploadMeme(timeStamp);
 
-				source.on('end', function(ev) {
+				dest.on('success', function() {
 					console.log('file is done uploading');
 					var response = {
 						status  : 200,
 						success : 'Updated Successfully',
 						gifUrl : gifUrl
 					};
-					setTimeout(function() {
+					// setTimeout(function() {
 						res.end(JSON.stringify(response));
-					}, 500);
+					// }, 500);
 				});
 			} else {
 				console.log(err);
@@ -131,9 +125,13 @@ app.get('/testload', function(req, res) {
 		.drawText(10, 48, "Testing server load")
 		.write("public/memes/"+timeStamp + ".gif", function (err) {
 			if (!err) {
+				var gifUrl = url + '/' + timeStamp+'.gif';
 				console.log('done');
 				uploadMeme(timeStamp);
-				res.render('share', {gifName: 'memes/'+timeStamp+'.gif'});
+				dest.on('success', function() {
+					console.log('file is done uploading');
+					res.render('share', {gifName: gifUrl});
+				});
 			} else {
 				console.log(err);
 			}
