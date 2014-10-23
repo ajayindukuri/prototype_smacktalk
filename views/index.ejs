@@ -3,11 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <title>Smack Talk</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Talk Smack" />
+  <meta property="og:url" content="http://talksmack.directv.com/" />
+  <meta property="og:image" content="http://23.253.134.8/memes/1413921292960.gif" />
+  <meta property="og:description" content="Talk Smack Bla Bla Bla">
   <link rel="stylesheet" href="../css/foundation.css" />
   <link rel="stylesheet" href="../css/style.css" />
 </head>
 <body>
-
   <div id="nav">
     <div></div>
     <img src="images/fantasy_zone.png" class="fz" />
@@ -25,55 +29,85 @@
 
   <div id="accordion">
 
-    <h3 class="one"><span>1.</span> Who are you Smacking?</h3>
+    <div class="one">
+      <h3><span><img src="images/one.png" /></span> Who are you Smacking?</h3>
+    </div>
     <div id="step-1" class="one">
-      <form id="theform" action="/talksmack" method="post">
-        <label for="username">Enter Friend's Name:</label><br />
-        <input type="text" name="username"><br />
-        <input class="btn-name" value="Talk Smack to a friend">
+      <div class="row">
+        <div class="large-12 columns">
+        <form id="theform" action="/talksmack" method="post">
+          <input type="text" name="username"><br />
+          <input class="btn btn-name" value="Talk Smack to a friend">
+        </div>
+      </div>
     </div>
-
-    <h3 class="two">2. Choose a GIF</h3>
+    
+    <div class="two">
+      <h3><span><img src="images/two.png" /></span>  Choose a GIF</h3>
+    </div>
     <div id="step-2" class="two">
-        <div class="images">
+      <div class="row">
+        <div class="large-12 columns">
+          <div class="images">
+            <ul>
+              <li class="a-gif">
+                <input type="radio" name="image" value="dance_share" id="dance_share">
+                <label for="dance_share"><img src="images/dance.gif" alt="dance_share"></label>
+              </li>
 
-          <ul>
-            <li class="a-gif">
-              <input type="radio" name="image" value="leehaw" id="leehaw">
-              <label for="leehaw"><img src="images/leehaw.gif" alt="leehaw"></label>
-            </li>
+              <li class="a-gif">
+                <input type="radio" name="image" value="leehaw" id="leehaw">
+                <label for="leehaw"><img src="images/leehaw.gif" alt="leehaw"></label>
+              </li>
 
-            <li class="a-gif">
-              <input type="radio" name="image" value="homer" id="homer">
-              <label for="homer"><img src="images/homer.gif" alt="homer"></label>
-            </li>
-          </ul>
-        </div>
-
-        <div class="messages">
-
-          <p>Choose your trash talk</p>
-          <div id="leehaw" class="msgs active">
-            <input type="radio" name="msg" value="you ride again 1"> you ride again 1<br />
-            <input type="radio" name="msg" value="you ride again 2"> you ride again 2<br />
-            <input type="radio" name="msg" value="you ride again 3"> you ride again 3<br />
+              <li class="a-gif">
+                <input type="radio" name="image" value="homer" id="homer">
+                <label for="homer"><img src="images/homer.gif" alt="homer"></label>
+              </li>
+            </ul>
           </div>
+          <div class="messages">
 
-          <div id="homer" class="msgs">
-            <input type="radio" name="msg" value="you bang again 1"> you bang again 1<br />
-            <input type="radio" name="msg" value="you bang again 2"> you bang again 2<br />
-            <input type="radio" name="msg" value="you bang again 3"> you bang again 3<br />
+            <div id="dance_share" class="msgs active">
+              <input type="radio" name="msg" value="you dance again 1"> you dance again 1<br />
+              <input type="radio" name="msg" value="you dance again 2"> you dance again 2<br />
+              <input type="radio" name="msg" value="you dance again 3"> you dance again 3<br />
+            </div>
+
+            <div id="leehaw" class="msgs">
+              <input type="radio" name="msg" value="you ride again 1"> you ride again 1<br />
+              <input type="radio" name="msg" value="you ride again 2"> you ride again 2<br />
+              <input type="radio" name="msg" value="you ride again 3"> you ride again 3<br />
+            </div>
+
+            <div id="homer" class="msgs">
+              <input type="radio" name="msg" value="you bang again 1"> you bang again 1<br />
+              <input type="radio" name="msg" value="you bang again 2"> you bang again 2<br />
+              <input type="radio" name="msg" value="These dudes are tougher than your whole squad."> These dudes are tougher than your whole squad.<br />
+            </div>
           </div>
+          <input class="btn btn-img" type="submit" value="Generate GIF">
+          </form>
         </div>
-
-        <input class="btn-img" type="submit" value="Generate GIF">
-      </form>
+      </div>
     </div>
 
-    <h3 class="three">3. Send Your Smack Talk</h3>
+    <div class="three">
+      <h3><span><img src="images/three.png" /></span>  Send Your Smack Talk</h3>
+    </div>
     <div id="step-3" class="three">
-      <p>GENERATE GIF</p>
-      <img src="images/spinner.gif" height="64" width="64" />
+
+      <div class="row">
+        <div class="large-12 columns">
+      
+          <div id="g-img">
+            <p>GENERATE GIF</p>
+            <img src="images/spinner.gif" />
+          </div>
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Ftalksmack.directv.com" onclick="popup(this.href);return false" class="btn fb">Talk Smack on Facebook</a>
+          <a href="https://twitter.com/intent/tweet?original_referer=https%3A%2F%2Ftwitter.com%2Fabout%2Fresources%2Fbuttons&amp;text=Talk%20Smack&amp;tw_p=tweetbutton&amp;url=http%3A%2F%2Ftalksmack.directv.com%2F" onclick="popup(this.href);return false" class="btn tw">Talk Smack on Twitter</a>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -109,9 +143,11 @@
           height: nh/3
         });
       $("#nav div").animate({
-         height: nh/3,
+          height: nh/3,
           opacity: 1
         });
+      $(".fz").css("height", nh/3);
+      $(".fz").css("margin-top", -nh/3 - 14);
     });
 
      $(window).scroll(function() {
@@ -154,13 +190,17 @@
       })
       .done(function( data ) {
         var response = JSON.parse(data);
-        $("#step-3").html('<img src="' + response.gifUrl +  '">');
+        $("#g-img").html('<img src="' + response.gifUrl +  '">');
+        $('meta[property=og\\:image]').attr('content', response.gifUrl);
       });
 
     });
 
-
-  });
+  // popup window
+  function popup(url) {
+      popupWindow = window.open(url, 'popUpWindow', 'height=300,width=500,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes');
+  };
+});
 </script>
 </body>
 </html>
