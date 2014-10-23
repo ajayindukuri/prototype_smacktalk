@@ -16,7 +16,6 @@ var client = pkgcloud.storage.createClient({
 container;
 
 
-
 client.createContainer({
 	name: 'gallery'
 }, function (err, container) {
@@ -87,10 +86,11 @@ app.post('/talksmack', function(req, res) {
 	gm('public/images/'+ gif +'.gif')
 		.options({imageMagick: true})
 		.fill("#ffffff")
-		.fontSize(22)
-		.drawText(10, 28, 'Hey ' + name + ', ')
-		.fontSize(18)
-		.drawText(10, 48, msg)
+		.fontSize(38)
+		//.drawText(10, 28, 'Hey ' + name + ', ')
+		.drawText(10, 128, name + ', ')
+		.fontSize(38)
+		.drawText(10, 148, msg)
 		.write("public/memes/"+timeStamp + ".gif", function (err) {
 			if (!err) {
 				console.log('done');
