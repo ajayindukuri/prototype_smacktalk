@@ -8,17 +8,19 @@ var fs = require('fs'),
 
 
 var client = pkgcloud.storage.createClient({
-	provider: 'rackspace',
-	username: 'hatchideas',
-	apiKey: '139194dc584201dd0d9b2e0479445797',
- region: 'IAD'
-}),
-container;
-
+		provider: 'rackspace',
+		username: 'hatchideas',
+		apiKey: '139194dc584201dd0d9b2e0479445797',
+		region: 'IAD'
+	}),
+	container,
+	url,
+	source,
+	dest;
 
 
 client.createContainer({
-	name: 'gallery'
+	name: 'talksmack'
 }, function (err, container) {
 	if (err) {
 		// TODO handle as appropriate
@@ -30,7 +32,7 @@ client.createContainer({
 	// TODO use your container
 });
 
-container = client.getContainer('gallery', function(err, container) {
+container = client.getContainer('talksmack', function(err, container) {
 	if (err) {
 		// TODO handle as appropriate
 		console.log(err);
@@ -38,26 +40,20 @@ container = client.getContainer('gallery', function(err, container) {
 	console.log( 'got the container');
 	// TODO use your container
 	console.log('container.cdnUri: ' + container.cdnUri);
+	url = container.cdnUri;
 });
 
 
 
 function uploadMeme(timeStamp) {
-	var filePath = 'public/memes/' + timeStamp + '.gif',
-		source = fs.createReadStream(filePath);
+	var filePath = 'public/memes/' + timeStamp + '.gif';
 
+	source = fs.createReadStream(filePath);
 	dest = client.upload({
-		container: 'gallery',
+		container: 'talksmack',
 		remote: timeStamp + '.gif',
-	}, function(err, res) {
-		if (err) {
-			console.log(err);
-		}
-		console.log("dest:");
-		console.log( res );
 	});
 
-	// pipe the source to the destination
 	source.pipe(dest);
 }
 
@@ -95,32 +91,22 @@ app.post('/talksmack', function(req, res) {
 		.drawText(10, 48, msg)
 		.write("public/memes/"+timeStamp + ".gif", function (err) {
 			if (!err) {
-				console.log('done');
+				var gifUrl = url + '/' + timeStamp+'.gif';
+				console.log('Done Creating Meme. Start: ' + timeStamp + " End: " + Date.now() + " Elapsed: " + ( Date.now() - timeStamp )/1000 + "s" );
 				//res.redirect(301, 'memes/'+timeStamp+'.gif');
 				uploadMeme(timeStamp);
 
-				// var cdnUrl = container.cdnUri + '/' + encodeURIComponent(timeStamp+'.gif');
-				// console.log('cdnURL: ' + cdnUrl);
-
-
-				// res.render('share', {gifName: 'memes/'+timeStamp+'.gif'});
-
-				// client.getFile('gallery', '1413842499797.gif', function(err, file) {
-				// 	console.log("Error: " + err);
-				// 	console.log('------');
-				// console.log("File: ", file);
-				// });
-
-
-
-				var response = {
-					status  : 200,
-					success : 'Updated Successfully',
-					gifUrl : 'memes/'+timeStamp+'.gif'
-				};
-
-				res.end(JSON.stringify(response));
-
+				dest.on('success', function() {
+					console.log('file is done uploading');
+					var response = {
+						status  : 200,
+						success : 'Updated Successfully',
+						gifUrl : gifUrl
+					};
+					// setTimeout(function() {
+						res.end(JSON.stringify(response));
+					// }, 500);
+				});
 			} else {
 				console.log(err);
 			}
@@ -128,9 +114,7 @@ app.post('/talksmack', function(req, res) {
 });
 
 app.get('/testload', function(req, res) {
-	// console.log(req.body.username);
 	var timeStamp = Date.now();
-
 	console.log('Testing server load!');
 	gm('public/images/leehaw.gif')
 		.options({imageMagick: true})
@@ -141,22 +125,18 @@ app.get('/testload', function(req, res) {
 		.drawText(10, 48, "Testing server load")
 		.write("public/memes/"+timeStamp + ".gif", function (err) {
 			if (!err) {
+				var gifUrl = url + '/' + timeStamp+'.gif';
 				console.log('done');
-				//res.redirect(301, 'memes/'+timeStamp+'.gif');
 				uploadMeme(timeStamp);
-
-				// var cdnUrl = container.cdnUri + '/' + encodeURIComponent(timeStamp+'.gif');
-				// console.log('cdnURL: ' + cdnUrl);
-
-				res.render('share', {gifName: 'memes/'+timeStamp+'.gif'});
+				dest.on('success', function(file) {
+					console.log('file is done uploading');
+					res.render('share', {gifName: gifUrl});
+				});
 			} else {
 				console.log(err);
 			}
 	});
 });
-
-
-
 
 var server = app.listen(3000, function() {
 		console.log('Listening on port %d', server.address().port);
